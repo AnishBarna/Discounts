@@ -20,6 +20,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<CityService>();
 builder.Services.AddTransient<DiscountedProductService>();
 
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
