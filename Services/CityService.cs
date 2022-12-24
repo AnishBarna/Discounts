@@ -21,7 +21,7 @@ namespace Discount.Services
     }
     public City? GetByName(string query)
     {
-        return _context.Cities.FirstOrDefault( p => p.CityName.ToLower() == query.ToLower());
+        return _context.Cities.FirstOrDefault( p => p.CityName!.ToLower() == query.ToLower());
     }
     public City Add(City city)
     {

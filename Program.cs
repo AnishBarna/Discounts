@@ -18,7 +18,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<CityService>();
-builder.Services.AddTransient<DiscountedProductService>();
+builder.Services.AddTransient<ProductService>();
+builder.Services.AddTransient<ProductCityService>();
+builder.Services.AddTransient<KeyService>();
 
 
 builder.Services.AddEndpointsApiExplorer();
@@ -36,6 +38,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.CreateDbIfNotExists();
 
 app.MapControllers();
 

@@ -4,11 +4,11 @@ using Discount.Data;
 
 namespace Discount.Services
 {
-    public class DiscountedProductService
+    public class ProductService
 {
     private readonly DiscountContext _context;
 
-    public DiscountedProductService(DiscountContext context)
+    public ProductService(DiscountContext context)
     {
         _context = context;
     }
@@ -22,7 +22,7 @@ namespace Discount.Services
     }
     public Product? GetByName(string query)
     {
-        return _context.Products.FirstOrDefault(p => p.ProductName.ToLower() == query.ToLower());
+        return _context.Products.FirstOrDefault(p => p.ProductName!.ToLower() == query.ToLower());
     }
     public Product Add(Product product)
     {
@@ -37,7 +37,8 @@ namespace Discount.Services
 
         var product = _context.Products.FirstOrDefault( p => p.ProductId == productid);
 
-        var productcity = _context.ProductCities.FirstOrDefault(p => p.CityCityId == cityid && p.ProductDiscountedProductId == product.DiscountedProductId);
+    
+        var productcity = _context.ProductCities.FirstOrDefault(p => p.CityId == cityid && p.ProductId == product!.ProductId);
 
         if(productcity is not null)
         {

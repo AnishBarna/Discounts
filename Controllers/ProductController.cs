@@ -9,13 +9,16 @@ namespace Discount.Controllers
     [Route("[controller]")]
 public class ProductController : ControllerBase
 {
-    DiscountedProductService _productservice;
+    ProductService _productservice;
     CityService _cityservice;
+    KeyService _keyservice;
 
-    public ProductController(DiscountedProductService pservice, CityService cservice)
+    public ProductController(ProductService pservice, CityService cservice, KeyService kservice)
     {
         _productservice = pservice;
         _cityservice = cservice;
+
+        _keyservice = kservice;
     }
 
     [HttpGet]
@@ -85,6 +88,15 @@ public class ProductController : ControllerBase
     [HttpPost]
     public ActionResult _AddProduct(Product product)
     {
+        var tobeadded = _productservice.GetById(product.ProductId);
+        
+        if(tobeadded is not null)
+        {
+            return BadRequest("Product already exists.");
+        }
+
+        product.Id = _keyservice.GetProductId();
+
         _productservice.Add(product);
         return CreatedAtAction(nameof(_AddProduct),product);
 
